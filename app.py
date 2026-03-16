@@ -1,15 +1,6 @@
 import random
 import streamlit as st
-from logic_utils import check_guess #Bug 2 Fixed - removed duplicate definition 
-
-def get_range_for_difficulty(difficulty: str):
-    if difficulty == "Easy":
-        return 1, 20
-    if difficulty == "Normal":
-        return 1, 100
-    if difficulty == "Hard":
-        return 1, 50
-    return 1, 100
+from logic_utils import check_guess, get_range_for_difficulty #Bug 2 Fixed - removed duplicate definition
 
 
 def parse_guess(raw: str):
@@ -121,9 +112,13 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
-if new_game: #picks secret from 1-100 but ignores difficulty level
+#Bug#3 fixed:
+if new_game:
+    low, high = get_range_for_difficulty(difficulty)
     st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    st.session_state.secret = random.randint(low, high)
+    st.session_state.status = "playing"
+    st.session_state.history = []
     st.success("New game started.")
     st.rerun()
 

@@ -1,7 +1,15 @@
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    if difficulty == "Easy":
+        return 1, 20
+    if difficulty == "Normal":
+        return 1, 100
+    if difficulty == "Hard":
+        return 1, 50
+    return 1, 100
 
+# FIX: Refactored get_range_for_difficulty into logic_utils.py via Copilot Agent Mode.
+# new_game block now calls it correctly so Hard mode stays within 1-50.
 
 def parse_guess(raw: str):
     """
