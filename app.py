@@ -28,13 +28,12 @@ def parse_guess(raw: str):
 
     return True, value, None
 
-# comment 
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
 
     try:
-        if guess > secret: #FIXME: Logic breaks here
+        if guess > secret: #FIXME: Logic breaks here - hint message is backwards
             return "Too High", "📈 Go HIGHER!"
         else:
             return "Too Low", "📉 Go LOWER!"
@@ -92,8 +91,15 @@ st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
+#Before:
+'''if "attempts" not in st.session_state:
+    st.session_state.attempts = 1''' #starts at 1- incorrect # FIXME: Logic breaks here
+
+#After: 
+# FIX: Changed initial attempts from 1 to 0. Identified via Copilot Chat explaining
+# how attempt_number works into update_score's point calculation.
 if "attempts" not in st.session_state:
-    st.session_state.attempts = 1 #starts at 1- incorrect # FIXME: Logic breaks here
+    st.session_state.attempts = 0
 
 if "score" not in st.session_state:
     st.session_state.score = 0

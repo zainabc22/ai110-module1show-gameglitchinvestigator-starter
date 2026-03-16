@@ -19,6 +19,11 @@ issues when playing:
 ## 2. How did you use AI as a teammate?
 
 Glitch - import streamlit could not be resolved. I used AI - VS codepilot to help me identify the need for this function - to create the webpage for the random number generator. I then ask AI for the underlying issue which was that Python did not have Streamlit isntalled or that VS code is using the wrong interpreter. 
+
+1. Bug 1:
+Using #file:app.py — the attempts counter initializes to 1 but should start at 0. Why does this cause problems downstream with update_score, and what's the fix?
+
+
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
