@@ -28,13 +28,13 @@ def parse_guess(raw: str):
 
     return True, value, None
 
-
+# comment 
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
 
     try:
-        if guess > secret:
+        if guess > secret: #FIXME: Logic breaks here
             return "Too High", "📈 Go HIGHER!"
         else:
             return "Too Low", "📉 Go LOWER!"
@@ -93,7 +93,7 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
-    st.session_state.attempts = 1
+    st.session_state.attempts = 1 #starts at 1- incorrect # FIXME: Logic breaks here
 
 if "score" not in st.session_state:
     st.session_state.score = 0
@@ -131,7 +131,7 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
-if new_game:
+if new_game: #picks secret from 1-100 but ignores difficulty level
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(1, 100)
     st.success("New game started.")

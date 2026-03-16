@@ -4,14 +4,21 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+When I ran the game for the first time, the hint was way lower than my input. The hint was 47 but my input was 99, although the program told me to keep guessing higher - even higher than 99. 
 
----
+issues when playing:
+1. Program told me to go higher than 99 but lower than 100. 
+2. Program gave the hint of 47, but I expected it to be between 99 and 100. 
+
+3 bugs:
+1. st.session_state.attempts starts at 1 instead of 0. 
+2. check_guess has wrong dirction hints - should be the opposite. 
+3. if new_game - picks secret from 1-100 but ignores the difficulty level from get_range_for_difficulty
+--- 
 
 ## 2. How did you use AI as a teammate?
 
+Glitch - import streamlit could not be resolved. I used AI - VS codepilot to help me identify the need for this function - to create the webpage for the random number generator. I then ask AI for the underlying issue which was that Python did not have Streamlit isntalled or that VS code is using the wrong interpreter. 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
