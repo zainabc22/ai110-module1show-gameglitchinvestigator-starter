@@ -26,12 +26,34 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📝 Document Your Experience
 
 - [ ] Describe the game's purpose.
+
+Glitchy Guesser is a number guessing game built with Streamlit. The player selects a difficulty level, which sets the range of the secret number, and tries to guess it within a limited number of attempts. After each guess, the game gives a directional hint (Too High / Too Low) and updates the player's score based on how quickly and accurately they guess. The twist: the starter code was intentionally shipped with bugs, and the goal of this project was to find, understand, and fix them using AI-assisted debugging tools.
+
 - [ ] Detail which bugs you found.
+
+Bug 1 — Attempts counter initialized to 1 instead of 0
+st.session_state.attempts started at 1, meaning the game was already one attempt ahead before the player made a single guess. This caused the attempts display to be off and skewed the score calculation in update_score from the very first guess.
+
+Bug 2 — check_guess returned inverted direction hints
+When a guess was too high, the game told the player to go higher. When it was too low, it told them to go lower — the opposite of what it should say. A secondary bug caused a TypeError crash on even-numbered attempts because secret was being cast to a str before being passed into check_guess.
+
+Bug 3 — New Game ignored difficulty and always used range 1–100
+The "New Game" button hardcoded random.randint(1, 100) instead of calling get_range_for_difficulty(difficulty). This meant switching to Hard mode (range 1–50) and starting a new game would still generate a secret number up to 100, making the difficulty setting meaningless on reset.
+
 - [ ] Explain what fixes you applied.
+
+Bug 1 — Fixed initialization value
+Changed st.session_state.attempts = 1 to st.session_state.attempts = 0 in app.py.
+
+Bug 2 — Refactored and corrected check_guess
+Moved check_guess from app.py into logic_utils.py using Copilot Agent Mode. Fixed the hint messages so guess > secret returns "Go LOWER" and guess < secret returns "Go HIGHER." Removed the TypeError except block, then separately removed the intentional str cast on secret in app.py that was causing the crash on even-numbered attempts.
+
+Bug 3 — Fixed New Game to respect difficulty
+Moved get_range_for_difficulty into logic_utils.py and updated the new_game block in app.py to call get_range_for_difficulty(difficulty) instead of hardcoding the range. Also reset status and history on new game so the app returns to a clean state.
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+![winning game screenshot](image.png)
 
 ## 🚀 Stretch Features
 
